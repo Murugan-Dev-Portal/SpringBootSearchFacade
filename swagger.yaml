@@ -1,0 +1,300 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: User Logging events searching
+  description: This API is used for retrieving the resources available in database.
+    1. Users containing their user id, email address and their workstation IP address
+    2. Events containing the event id, type, time of event, user and the IP address
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+host: localhost
+basePath: /inf/user/log/monitoring/v1
+tags:
+  - name: user, events
+    description: Information about the user and their events
+
+schemes:
+  - http
+produces:
+  - application/json
+consumes:
+  - application/json
+
+securityDefinitions:
+  BasicAuth:
+    type: basic
+    description: HTTP Basic Authentication.
+
+security:
+  - BasicAuth: []
+
+paths:
+  '/users/{id}':
+    get:
+      operationId: getUserById
+      summary: Retrieve user details
+      description: This end point helps to retrieve the information about the target user being inquired.
+      tags:
+        - user
+      responses:
+        '200':
+          $ref: '#/responses/200UserResponse'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+    parameters:
+      -
+        name: id
+        description: Unique identifier of the User being queried
+        in: path
+        required: true
+        type: string
+  '/events/{id}':
+    get:
+      operationId: getEventById
+      summary: Retrieve information about an event
+      description: Retrieve information about an event
+      tags:
+        - event
+      responses:
+        '200':
+          $ref: '#/responses/200EventResponse'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+    parameters:
+      -
+        name: id
+        description: Unique identifier of the event object
+        in: path
+        required: true
+        type: string
+  '/users/search':
+    get:
+      operationId: searchUsers
+      summary: Retrieve user details based on the criteria provided
+      description: This end point helps to retrieve all the matching information about the users being inquired.
+      tags:
+        - user
+      parameters:
+        - name: Filter
+          in: body
+          description: Input criteria for filtering the list of users
+          required: true
+          schema:
+            $ref: '#/definitions/UserFilters'
+      responses:
+        '200':
+          $ref: '#/responses/200UserSearchResponse'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  '/events/search':
+    get:
+      operationId: searchEvents
+      summary: Retrieve event details based on the criteria provided
+      description: This end point helps to retrieve all the matching information about the events being inquired.
+      tags:
+        - event
+      parameters:
+        - name: Filter
+          in: body
+          description: Input criteria for filtering the list of events
+          required: true
+          schema:
+            $ref: '#/definitions/EventFilters'
+      responses:
+        '200':
+          $ref: '#/responses/200EventSearchResponse'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+definitions:
+  User:
+    title: Root Type for User
+    description: User information
+    type: object
+    properties:
+      id:
+        type: string
+      emailAddress:
+        type: string
+      workStationIP:
+        type: string
+    example:
+      id: 507f191e810c19729de860e3
+      emailAddress: user4@sample.io
+      workStationIP: 192.168.1.13
+  Event:
+    title: Root Type for Events
+    description: >-
+      This object provides information about the different events linked to the user's activity on
+      workstations.
+    type: object
+    properties:
+      userId:
+        type: string
+      type:
+        type: string
+      time:
+        type: string
+      emailAddress:
+        type: string
+      workStationIP:
+        type: string
+    example:
+      userId: 507f191e810c19729de8aae0
+      type: LOGIN
+      time: 1262340660000
+      emailAddress: user1@sample.io
+
+  UserFilters:
+    title: list of filters for inquiring the user
+    type: object
+    properties:
+      filters:
+        type: array
+        items:
+          $ref: '#/definitions/UserFilter'
+
+  UserFilter:
+    title: Filter criteria about the users being inquired
+    type: object
+    properties:
+      attribute:
+        type: string
+        enum:
+          - id
+          - emailAddress
+          - workStationIP
+      operator:
+        type: string
+        enum:
+          - eq
+          - like
+      value:
+        type: string
+
+  EventFilters:
+    title: list of filters for inquiring the events
+    type: object
+    properties:
+      filters:
+        type: array
+        items:
+          $ref: '#/definitions/EventFilter'
+
+  EventFilter:
+    title: Filter criteria about the events being inquired
+    type: object
+    properties:
+      attribute:
+        type: string
+        enum:
+          - type
+          - time
+          - emailAddress
+          - userId
+          - workStationIP
+      operator:
+        type: string
+        enum:
+          - eq
+          - gte
+          - lte
+          - like
+      value:
+        type: string
+      range:
+        $ref: '#/definitions/TimeRange'
+
+  TimeRange:
+    title: criteria for filtering the resource between the range provided
+    type: object
+    properties:
+      from:
+        type: string
+      to:
+        type: string
+
+  Error:
+    title: Root Type for Error
+    description: Represents an individual error
+    type: object
+    properties:
+      code:
+        format: int32
+        type: integer
+      message:
+        type: string
+      details:
+        type: string
+    example:
+      code: 101
+      message: Short message about the error
+      details: Detail information about the error
+  ErrorResult:
+    description: Entire information about the errors occurred
+    type: object
+    properties:
+      errors:
+        type: array
+        items:
+          $ref: '#/definitions/Error'
+  ErrorResponse:
+    description: Error Response object incase of unsuccessful operations
+    type: object
+    properties:
+      result:
+        $ref: '#/definitions/ErrorResult'
+responses:
+  200UserResponse:
+    description: Valid User Object Response
+    schema:
+      $ref: '#/definitions/User'
+  200EventResponse:
+    description: Event information about the user
+    schema:
+      $ref: '#/definitions/Event'
+  400ErrorResponse:
+    description: Error response for bad request
+    schema:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/definitions/Error'
+  404ErrorResponse:
+    description: Error response for bad request or unknown resources
+    schema:
+      $ref: '#/definitions/ErrorResult'
+  500ErrorResponse:
+    description: Error resposne for unexpected or runtime errors while processing
+    schema:
+      $ref: '#/definitions/ErrorResponse'
+  200EventSearchResponse:
+    description: Response object for event search
+    schema:
+      type: array
+      items:
+        $ref: '#/definitions/Event'
+  200UserSearchResponse:
+    description: Response object for user search
+    schema:
+      type: array
+      items:
+        $ref: '#/definitions/User'

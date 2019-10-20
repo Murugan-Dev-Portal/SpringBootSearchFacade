@@ -1,0 +1,11 @@
+{
+  "basePackage": "au.com.test.inf.user.log.monitoring",
+  "configPackage": "au.com.test.inf.user.log.monitoring.config",
+  "apiPackage": "au.com.test.inf.user.log.monitoring.api",
+  "modelPackage": "au.com.test.inf.user.log.monitoring.model",
+  "invokerPackage": "au.com.test.inf.user.log.monitoring.gen",
+  "groupId": "au.com.test.inf.user.log.monitoring",
+  "artifactId": "inf.user.log.monitoring",
+  "dateLibrary" : "java8",
+  "artifactVersion": "1.0-SNAPSHOT"
+}
