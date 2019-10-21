@@ -1,14 +1,9 @@
 package au.com.test.inf.user.log.monitoring.model;
 
-import java.util.Objects;
-import au.com.test.inf.user.log.monitoring.model.TimeRange;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-
+import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 
 /**
@@ -43,6 +38,7 @@ public class EventFilter   {
     }
   }
 
+  @NotNull
   private AttributeEnum attribute = null;
 
   /**
@@ -69,8 +65,10 @@ public class EventFilter   {
     }
   }
 
+  @NotNull
   private OperatorEnum operator = null;
 
+  @NotNull
   private String value = null;
 
   private TimeRange range = null;

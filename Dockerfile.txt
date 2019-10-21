@@ -1,0 +1,4 @@
+FROM java:8
+EXPOSE 6868
+ADD /target/inf.user.log.monitoring-1.0-SNAPSHOT.jar search-facade.jar
+ENTRYPOINT ["java", "-jar", "search-facade.jar"]

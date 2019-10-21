@@ -1,11 +1,9 @@
 package au.com.test.inf.user.log.monitoring.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 
 
@@ -38,6 +36,7 @@ public class UserFilter   {
     }
   }
 
+  @NotNull
   private AttributeEnum attribute = null;
 
   /**
@@ -60,8 +59,10 @@ public class UserFilter   {
     }
   }
 
+  @NotNull(message = "Operator is must")
   private OperatorEnum operator = null;
 
+  @NotNull(message = "value is must")
   private String value = null;
 
   public UserFilter attribute(AttributeEnum attribute) {

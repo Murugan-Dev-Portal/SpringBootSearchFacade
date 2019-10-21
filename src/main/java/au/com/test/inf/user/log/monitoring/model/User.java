@@ -3,13 +3,8 @@ package au.com.test.inf.user.log.monitoring.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.persistence.*;
 import java.util.Objects;
 
-
-/**
- * User information
- **/
 
 /**
  * User information
@@ -17,18 +12,11 @@ import java.util.Objects;
 @ApiModel(description = "User information")
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2019-10-20T23:03:10.322+11:00")
 
-@Entity
-@Table(name="USER")
 public class User   {
-  @Id
-  @GeneratedValue
-  @Column(name="ID", nullable=false, length=64)
   private String id = null;
 
-  @Column(name="EMAIL_ADDRESS", nullable=false, length=100)
   private String emailAddress = null;
 
-  @Column(name="WORK_STATION_IP", nullable=false, length=15)
   private String workStationIP = null;
 
   public User id(String id) {
