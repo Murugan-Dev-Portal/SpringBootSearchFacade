@@ -5,6 +5,7 @@ import au.com.test.inf.user.log.monitoring.model.UserFilters;
 import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import java.util.List;
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2019-10-20T23:03:10.322+11:00")
 
 @Api(value = "users", description = "the users API")
+@Component
 public interface UsersApi {
 
     @ApiOperation(value = "Retrieve user details", notes = "This end point helps to retrieve the information about the target user being inquired.", response = User.class, authorizations = {
@@ -25,7 +27,7 @@ public interface UsersApi {
             @ApiResponse(code = 400, message = "Error response for bad request", response = User.class),
             @ApiResponse(code = 404, message = "Error response for bad request or unknown resources", response = User.class),
             @ApiResponse(code = 500, message = "Error resposne for unexpected or runtime errors while processing", response = User.class)})
-    @RequestMapping(value = "/users/{id}",
+    @RequestMapping(value = "/users/{id}}",
             produces = {"application/json"},
             consumes = {"application/json"},
             method = RequestMethod.GET)

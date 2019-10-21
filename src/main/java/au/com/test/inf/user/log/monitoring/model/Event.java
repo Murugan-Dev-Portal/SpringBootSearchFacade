@@ -1,12 +1,9 @@
 package au.com.test.inf.user.log.monitoring.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.persistence.*;
+import java.util.Objects;
 
 
 /**
@@ -19,28 +16,18 @@ import javax.persistence.*;
 @ApiModel(description = "This object provides information about the different events linked to the user's activity on workstations.")
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2019-10-20T23:03:10.322+11:00")
 
-@Entity
-@Table(name="EVENT")
 public class Event   {
 
-  @Id
-  @GeneratedValue
-  @Column(name="USER_ID")
   private Long eventId;
 
-  @Column(name="ID", nullable=false, length=64)
   private String userId = null;
 
-  @Column(name="TYPE", nullable=false, length=20)
   private String type = null;
 
-  @Column(name="TIME", nullable=false, length=64)
   private String time = null;
 
-  @Column(name="EMAIL_ADDRESS", nullable=false, length=100)
   private String emailAddress = null;
 
-  @Column(name="WORK_STATION_IP", nullable=false, length=15)
   private String workStationIP = null;
 
   public Event userId(String userId) {

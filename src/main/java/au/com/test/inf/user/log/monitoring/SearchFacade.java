@@ -6,8 +6,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-import java.util.Collections;
-
 @SpringBootApplication
 @ComponentScan(basePackages = "au.com.test.inf.user.log.monitoring")
 public class SearchFacade implements CommandLineRunner {
@@ -21,7 +19,8 @@ public class SearchFacade implements CommandLineRunner {
 
     public static void main(String[] args) throws Exception {
 		SpringApplication app = new SpringApplication(SearchFacade.class);
-		app.setDefaultProperties(Collections.singletonMap("server.port", "6868"));
+		System.out.println("Search Facade 1.0 started...");
+		//app.setDefaultProperties(Collections.singletonMap("server.port", "6868"));
 		app.run(args);
     }
 
